@@ -68,6 +68,9 @@ public class GarageMain {
 			case 6:			
 				controlador.listarVehiculos();		
 				break;
+			case 7:			
+				controlador.listarReservasByFecha(fechaInicio, fechaFin);;		
+				break;
 			default:
 				System.out.println("Error");
 				break;
@@ -108,5 +111,9 @@ public class GarageMain {
 //		return garaje;
 //	}
 	
+	public static void validarFechasEntrada(Date fechaInicio, Date fechaFin);{
+	
+
+	}
 	
 }

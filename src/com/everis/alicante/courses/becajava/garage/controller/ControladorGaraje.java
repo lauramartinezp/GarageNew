@@ -14,7 +14,7 @@ public interface ControladorGaraje {
 	void listarClientes() throws IOException;
 	void listarReservas() throws IOException;
 	void listarVehiculos() throws IOException;
-	void listarReservasByFecha(Date fechaInicio, Date fechaFin);
+	void listarReservasByFecha(Date fechaInicio, Date fechaFin) throws IOException;
 	
 
 }

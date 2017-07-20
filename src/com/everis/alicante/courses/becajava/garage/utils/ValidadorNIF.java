@@ -31,5 +31,12 @@ public class ValidadorNIF {
 		
 		
 	}
+
+	public static boolean validaNif(String nif) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+
 	
 }

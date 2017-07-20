@@ -23,6 +23,7 @@ import com.everis.alicante.courses.becajava.garage.interfaces.implementaciones.C
 import com.everis.alicante.courses.becajava.garage.interfaces.implementaciones.PlazaDAOFileImp;
 import com.everis.alicante.courses.becajava.garage.interfaces.implementaciones.ReservaDAOFileImp;
 import com.everis.alicante.courses.becajava.garage.interfaces.implementaciones.VehiculoDAOFileImpl;
+import com.everis.alicante.courses.becajava.garage.utils.ValidadorNIF;
 
 public class ControladorGarajeImpl implements ControladorGaraje{
 
@@ -83,9 +84,22 @@ public class ControladorGarajeImpl implements ControladorGaraje{
 		Scanner in = new Scanner(System.in);		
 		cliente.setNombreCompleto(in.nextLine());
 		
-		System.out.println("Insert el nif del cliente");		
-		in = new Scanner(System.in);
-		cliente.setNif(in.nextLine());
+		boolean nifCorrecto = false;
+		String nif="";
+		
+		while(!nifCorrecto) {
+			System.out.println("Insert el nif del cliente");		
+			in = new Scanner(System.in);
+			nif=in.nextLine();
+			nifCorrecto=ValidadorNIF.validaNif(nif);
+			if(nifCorrecto==false) {
+				System.out.println("NIF Correcto");
+			}
+		}
+			
+
+		
+		//cliente.setNif(in.nextLine());
 		
 		Vehiculo vehiculo = null;
 		
@@ -208,7 +222,22 @@ public class ControladorGarajeImpl implements ControladorGaraje{
 	}
 
 	@Override
-	public void listarReservasByFecha(Date fechaInicio, Date fechaFin) {
+	public void listarReservasByFecha(Date fechaInicio, Date fechaFin) throws IOException {
+		
+		ReservaDAO reservaDAO = new ReservaDAOFileImp();
+		
+		Map<String, Reserva> reservas = reservaDAO.readReservas();
+		
+		for (Reserva reserva : reservas.values()) {
+			
+			if(reserva.getFechaReserva().before(fechaFin)&& reserva.getFechaReserva().after(fechaInicio)) {
+				
+				System.out.println("Reserva: " +reserva+);
+				
+				
+			}
+			
+		}
 		
 	}
 
