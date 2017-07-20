@@ -2,6 +2,7 @@ package com.everis.alicante.courses.becajava.garage.controller;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Scanner;
@@ -203,6 +204,11 @@ public class ControladorGarajeImpl implements ControladorGaraje{
 			System.out.println(vehiculo.getMatricula()+"-" + vehiculo.getTipoVehiculo());
 			
 		}
+		
+	}
+
+	@Override
+	public void listarReservasByFecha(Date fechaInicio, Date fechaFin) {
 		
 	}
 
