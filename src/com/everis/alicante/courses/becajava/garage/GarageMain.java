@@ -46,6 +46,7 @@ public class GarageMain {
 	    boolean resultado = true;   
 	    Map<Integer,Plaza> mapa=null;
 		
+	    
 		System.out.println("Ha elegido la opcion :" + opcion);
 				
 		switch (opcion) {
