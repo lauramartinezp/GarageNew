@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 public class ValidadorNIF {
 
-	static boolean validaNIF(String nif) {
+	public static boolean validaNIF(String nif) {
 		//logica de validacion
 		
 		
@@ -32,10 +32,6 @@ public class ValidadorNIF {
 		
 	}
 
-	public static boolean validaNif(String nif) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 	
 
 	
