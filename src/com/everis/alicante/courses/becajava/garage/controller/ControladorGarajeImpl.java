@@ -1,6 +1,4 @@
 package com.everis.alicante.courses.becajava.garage.controller;
-import java.io.IOException;
-import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
@@ -11,6 +9,7 @@ import java.util.Scanner;
 import com.everis.alicante.courses.becajava.garage.domain.Camion;
 import com.everis.alicante.courses.becajava.garage.domain.Cliente;
 import com.everis.alicante.courses.becajava.garage.domain.Coche;
+import com.everis.alicante.courses.becajava.garage.domain.GarajeException;
 import com.everis.alicante.courses.becajava.garage.domain.Motocicleta;
 import com.everis.alicante.courses.becajava.garage.domain.Plaza;
 import com.everis.alicante.courses.becajava.garage.domain.Reserva;
@@ -29,11 +28,14 @@ import com.everis.alicante.courses.becajava.garage.utils.ValidadorNIF;
 public class ControladorGarajeImpl implements ControladorGaraje{
 
 	@Override
-	public Map<Integer,Plaza> listarPlazasLibres() throws IOException, ParseException {
+	public Map<Integer,Plaza> listarPlazasLibres() throws GarajeException {
+		Map<Integer, Plaza> plazasTotales = null;
+		
+		try {
 		
 		PlazaDAO plazaDao= new PlazaDAOFileImp();
 		
-		Map<Integer, Plaza> plazasTotales = plazaDao.readPlazas();
+		plazasTotales = plazaDao.readPlazas();
 		
 		ReservaDAO reservaDAO= new ReservaDAOFileImp();
 		
@@ -45,12 +47,24 @@ public class ControladorGarajeImpl implements ControladorGaraje{
 			
 		}
 		
+		//throw new IOException();	Para mostrar las excepciones
+		
+		
+	} catch (Exception e) {
+		
+		GarajeException ex= new GarajeException(e);			
+		
+		throw ex;
+		
+	}
 		return plazasTotales;
 		
 	}
 
 	@Override
-	public void listarPlazasOcupadas() throws IOException, ParseException {		
+	public void listarPlazasOcupadas() throws GarajeException {	
+		
+		try {
 				
 		ReservaDAO reservaDAO= new ReservaDAOFileImp();
 		
@@ -63,13 +77,22 @@ public class ControladorGarajeImpl implements ControladorGaraje{
 			System.out.println("La plaza numero: " + reserva.getCodigoReserva()+" esta reservada");
 			
 		}
+		//throw new IOException();
+		
+		} catch (Exception e) {
+			GarajeException ex= new GarajeException(e);
+			throw ex;
+		}
 		
 	}
 	
 	@Override
-	public boolean reservarPlaza() throws IOException, ParseException {
+	public boolean reservarPlaza() throws GarajeException {
 		
 		//logica de crear cliente
+		boolean hayplaza=false;		
+		
+		try {
 		
 		Cliente cliente= new Cliente();
 		
@@ -131,7 +154,7 @@ public class ControladorGarajeImpl implements ControladorGaraje{
 						
 		cliente.setVehiculo(vehiculo);
 		
-		boolean hayplaza=false;							
+								
 	
 		Map<Integer, Plaza> plazas = listarPlazasLibres();		
 				
@@ -156,13 +179,20 @@ public class ControladorGarajeImpl implements ControladorGaraje{
 				return hayplaza;
 			}		
 		}
+		} catch (Exception e) {
+			GarajeException ex= new GarajeException(e);
+			throw ex;
+			
+		}
 				
 		return hayplaza;
 		
 	}
 	
 	@Override
-	public void listarClientes() throws IOException {
+	public void listarClientes() throws GarajeException {
+		
+		try {
 		
 		ClienteDAO daoCliente= new ClienteDAOFileImpl();		
 		
@@ -176,13 +206,18 @@ public class ControladorGarajeImpl implements ControladorGaraje{
 			System.out.println(cliente.getNombreCompleto()+";" + cliente.getNif());			
 					
 		}
+		} catch (Exception e) {		
+			GarajeException ex= new GarajeException(e);
+			throw ex;
+		}
 		
 
 	}
 	
 	@Override
-	public void listarReservas() throws IOException, ParseException {
+	public void listarReservas() throws GarajeException {
 	
+		try {
 		
 		ReservaDAO reservaDao= new ReservaDAOFileImp();
 		
@@ -197,11 +232,16 @@ public class ControladorGarajeImpl implements ControladorGaraje{
 			 System.out.println("vehiculo: " +reserva.getCliente().getVehiculo().getMatricula() +" - " + reserva.getCliente().getVehiculo().getTipoVehiculo());
 			
 		}
+		} catch (Exception e) {		
+			GarajeException ex= new GarajeException(e);
+			throw ex;
+		}
 		
 	}
 	
 	@Override
-	public void listarVehiculos() throws IOException {
+	public void listarVehiculos() throws GarajeException {
+		try {
 		
 		VehiculoDAO daoVehiculo= new VehiculoDAOFileImpl();
 	
@@ -212,12 +252,18 @@ public class ControladorGarajeImpl implements ControladorGaraje{
 			System.out.println(vehiculo.getMatricula()+"-" + vehiculo.getTipoVehiculo());
 			
 		}
+		} catch (Exception e) {		
+			GarajeException ex= new GarajeException(e);
+			throw ex;
+		}
 		
 	}
 
 
 	@Override
-	public void listarReservasByFecha(Date fechaInicio, Date fechaFin) throws IOException, ParseException {
+	public void listarReservasByFecha(Date fechaInicio, Date fechaFin) throws GarajeException {
+		
+		try {
 	
 		ReservaDAO reservaDAO= new ReservaDAOFileImp();
 		
@@ -234,6 +280,11 @@ public class ControladorGarajeImpl implements ControladorGaraje{
 			}
 			
 		}
+		} catch (Exception e) {		
+			GarajeException ex= new GarajeException(e);
+			throw ex;
+		}
+		
 		
 		
 	}
